@@ -9,9 +9,10 @@ public class PlayerScript : MonoBehaviour {
 
 	public float oxygen = 60;
 	public float lungFill = 100;
+	public float breatheTime = 2f;
+
 	float oxygenGain = 0.25f;
 
-	float breatheTime = 2f;
 	float oxygenDecay = 0.15f;
 	float breathMultiplier = 10f;
 
