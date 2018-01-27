@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyEffectsScripts : MonoBehaviour {
-
+public class test : MonoBehaviour {
+	
 	// Use this for initialization
 	void Start () {
 		
