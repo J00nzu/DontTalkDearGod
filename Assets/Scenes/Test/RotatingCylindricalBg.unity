@@ -129,23 +129,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
---- !u!114 &120602653
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 120602651}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72d23b151f1168c4696a334930294638, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camTransform: {fileID: 0}
-  shakeDuration: 0.2
-  shakeWait: 2
-  shakeDurationThreshold: 0.01
-  shakeAmount: 1
-  decreaseFactor: 1
 --- !u!1 &1100690631
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,8 +204,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1100690631}
-  m_LocalRotation: {x: -0.05945025, y: -0.49006626, z: -0.03352619, w: 0.8690091}
-  m_LocalPosition: {x: 8.224623, y: -0.6512045, z: -20.389597}
+  m_LocalRotation: {x: 0, y: 0.0006312535, z: 0, w: 0.9999998}
+  m_LocalPosition: {x: 0.75009674, y: 1.1392102, z: -8.787319}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -234,16 +217,16 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1100690631}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72d23b151f1168c4696a334930294638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   camTransform: {fileID: 1100690635}
   shakeDuration: 0.1
-  shakeWait: 0.5
+  shakeWait: 6
   shakeDurationThreshold: 0.01
-  shakeAmount: 0.12
+  shakeAmount: 0.05
   decreaseFactor: 1
 --- !u!1 &1145251207
 GameObject:
@@ -324,6 +307,7 @@ GameObject:
   - component: {fileID: 1709122909}
   - component: {fileID: 1709122914}
   - component: {fileID: 1709122915}
+  - component: {fileID: 1709122916}
   m_Layer: 0
   m_Name: BGCurve
   m_TagString: Untagged
@@ -373,7 +357,7 @@ MonoBehaviour:
   hidden: 0
   parent: {fileID: 1709122911}
   ccName: 
-  distance: 0
+  distance: 15.140567
   handlesScale: 1
   handlesColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1709122911
@@ -582,6 +566,18 @@ MonoBehaviour:
   revolutionsClockwiseField: {fileID: 0}
   handlesScale: 1
   handlesColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1709122916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1709122908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17c16a732cb90d94e9df5a51af06d595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraSmallVibrationScript: {fileID: 0}
 --- !u!1001 &1826847971
 Prefab:
   m_ObjectHideFlags: 0
