@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class KeyMovementScript : MonoBehaviour {
 
-
 	private GameObject HolderObject;
 	public int timer;
 	public float SecondsToWait;
@@ -14,10 +13,6 @@ public class KeyMovementScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		HolderObject = this.gameObject;
-
-
-
-
 		// Start function WaitAndPrint as a coroutine.
 
 		coroutine = BasicMovement ();//redFlick();
@@ -38,8 +33,6 @@ public class KeyMovementScript : MonoBehaviour {
 				HolderObject.transform.Translate (Vector3.up *speed* Time.deltaTime);
 
 			}
-
-
 
 			for(int i = 0; i < timer;i++){
 
