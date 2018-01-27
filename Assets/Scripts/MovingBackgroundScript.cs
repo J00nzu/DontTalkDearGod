@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingBakgroudScript : MonoBehaviour {
+public class MovingBackgroundScript : MonoBehaviour {
 	public Rigidbody rb;
 	//Vector3 rot_dir = transform.forward;
 	float rot_vel = 1.0f;
