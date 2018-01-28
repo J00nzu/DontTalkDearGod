@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerScript : MonoBehaviour {
@@ -20,6 +21,10 @@ public class PlayerScript : MonoBehaviour {
 
 	public KeyCode breathKey = KeyCode.RightShift;
 
+	private int anxiety = 0;
+	private int maxAnxiety = 5;
+
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(Breathing());
@@ -28,13 +33,34 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (oxygen < 0) {
+			GameOver();
+		}
 		oxygen = Mathf.Clamp(oxygen, 0, 100);
 		
 		if (Input.GetKeyDown(breathKey)) {
 			BreatheIn();
 		} else if (Input.GetKeyUp(breathKey)) {
 			BreatheOut();
+		}
+	}
+
+	public int GetAnxiety () {
+		return anxiety;
+	}
+
+	public void IncreaseAnxiety () {
+		anxiety++;
+		switch (anxiety) {
+			case 2:
+				SetBreathingDifficulty(BreathingDifficulty.medium);
+				break;
+			case 4:
+				SetBreathingDifficulty(BreathingDifficulty.hard);
+				break;
+		}
+		if (anxiety >= maxAnxiety) {
+			GameOver();
 		}
 	}
 
@@ -105,5 +131,9 @@ public class PlayerScript : MonoBehaviour {
 
 			}
 		}
+	}
+
+	void GameOver () {
+		SceneManager.LoadScene("GameOver");
 	}
 }

@@ -1,6 +1,9 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
 
+using System.Collections;
+using System.Collections.Generic;
+
 public class AudioManager : MonoBehaviour {
 
 	public Sound[] sounds;
@@ -45,5 +48,48 @@ public class AudioManager : MonoBehaviour {
 
 		}
 		sound.source.Play ();
+	}
+
+
+	public IEnumerator RandomPlay(){
+		
+		int count = 0;
+
+		while (true) {
+			int num = Random.Range (1, 4);
+
+
+
+				Debug.Log (num);
+				switch (num) {
+				case 1:
+					Play ("granny1");
+					count = 0;
+					break;
+
+				case 2:
+					Play ("granny2");
+					count = 0;
+					break;
+
+				case 3:
+					Play ("granny3");
+					count = 0;
+					break;
+
+				case 4:
+					Play ("granny4");
+					count = 0;
+					break;
+
+
+
+				}
+
+
+			yield return new WaitForSeconds (55);
+		}
+
+
 	}
 }

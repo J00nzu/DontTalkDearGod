@@ -25,8 +25,15 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 		if (camTransform == null)
 		{
 			//camTransform = GetComponent(typeof(Transform)) as Transform;
-			camTransform  = transform.Find("Main Camera").GetComponent<Camera>().transform;
+			//camTransform  = transform.Find("Main Camera").GetComponent<Camera>().transform;
+			camTransform = Camera.main.transform;
 		}
+	}
+
+	void Start(){
+
+		FindObjectOfType<AudioManager> ().Play ("busDrive");
+		StartCoroutine( FindObjectOfType<AudioManager> ().RandomPlay ());
 	}
 
 	void OnEnable() {
@@ -37,6 +44,7 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 	}
 
 	void Shake() {
+		FindObjectOfType<AudioManager> ().Play ("bumpyRide");
 		if (shakeDuration > 0) {
 			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 

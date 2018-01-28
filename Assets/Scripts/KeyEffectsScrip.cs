@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class KeyEffectsScrip : MonoBehaviour {
 
+	public GameObject successPrefab;
+
 	private Image image;
 
 	public List<Image> imageList;
@@ -27,10 +29,17 @@ public class KeyEffectsScrip : MonoBehaviour {
 
 
 	float flickTime = 2f;
+	float expandTime = 5f;
+
+	float expandRatio = 0.7f;
+
+	PlayerScript player;
+
 
 	// Use this for initialization
 	void Start () {
 		coroutineFlicking = StartCoroutine(flicking());
+		player = FindObjectOfType<PlayerScript>();
 	}
 
 	// Update is called once per frame
@@ -41,13 +50,30 @@ public class KeyEffectsScrip : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(code)) {
-			StopCoroutine(coroutineFlicking);
+			if (coroutineFlicking != null) {
+				StopCoroutine(coroutineFlicking);
+				coroutineFlicking = null;
+			}
+			coroutineExpanding = StartCoroutine(expanding());
 		} else if (Input.GetKeyUp(code)) {
 			coroutineFlicking = StartCoroutine(flicking());
+			if (coroutineExpanding != null) {
+				StopCoroutine(coroutineExpanding);
+				coroutineFlicking = null;
+			}
 		}
 	}
 
-	void DestroyKey () {
+	void DestroyKey (bool success) {
+
+		if (success) {
+			if (successPrefab != null) {
+				var go = Instantiate(successPrefab, FindObjectOfType<Canvas>().transform);
+				go.transform.position = transform.position;
+			}
+		} else {
+			player.IncreaseAnxiety();
+		}
 
 		//var go = Instantiate(puffEffect);
 
@@ -58,22 +84,42 @@ public class KeyEffectsScrip : MonoBehaviour {
 		Destroy(parentToKill);
 	}
 
+	IEnumerator expanding () {
+
+		foreach (Image img in imageList) {
+			img.color = new Color(100, 100, 100, 255);
+		}
+		float targetScale = parentToKill.transform.localScale.x * expandRatio;
+		while (expandTime > 0) {
+			expandTime -= Time.deltaTime;
+			float originalScale = parentToKill.transform.localScale.x;
+			float nuScale = Mathf.Lerp(originalScale, targetScale, Time.deltaTime);
+			parentToKill.transform.localScale = new Vector3(nuScale, nuScale, nuScale);
+			yield return null;
+		}
+		DestroyKey(true);
+	}
+
 	IEnumerator flicking () {
 
 		while (flickTime > 0) {
-			imageList[0].color = new Color(100, 100, 100, 255);
+			foreach (Image img in imageList) {
+				img.color = new Color(100, 100, 100, 255);
+			}
 
 			float sleepTime = Mathf.Clamp(flickTime / 8, 0.05f, 1);
 			flickTime -= sleepTime*2;
 
 			yield return new WaitForSeconds(sleepTime);
 
-			imageList[0].color = new Color(255, 0, 0);
+			foreach (Image img in imageList) {
+				imageList[0].color = new Color(255, 0, 0);
+			}
 
 			yield return new WaitForSeconds(sleepTime);
 		}
 
-		DestroyKey();
+		DestroyKey(false);
 	}
 
 }

@@ -76,7 +76,7 @@ public class EnemyScript : MonoBehaviour {
 
 			energy -= reduceFactor;
 			EnergyMeter();
-			Debug.Log (energy);
+
 
 
 		} while (energy >= 0);

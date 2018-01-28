@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class KeyScript : MonoBehaviour {
 
+
 	public Text text;
 
 	public string key;
@@ -49,5 +50,9 @@ public class KeyScript : MonoBehaviour {
 			pres.enabled = false;
 			unPres.enabled = true;
 		}
+	}
+
+	void OnDestroy () {
+		//FindObjectOfType<InputManagerScript>().UnlockKey(key);
 	}
 }

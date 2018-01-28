@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InputManagerScript : MonoBehaviour {
 
@@ -72,6 +73,27 @@ public class InputManagerScript : MonoBehaviour {
 		return allowedKeysBools[x, y];
 	}
 
+	public void UnlockKey (string key) {
+		int width = allowedKeys.GetLength(0);
+		int height = allowedKeys.GetLength(1);
+		int ix = 0;
+		int iy = 0;
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				string s = allowedKeys[i, j];
+				if (s.Equals(key)) {
+					ix = i;
+					iy = j;
+				}
+			}
+		}
+		UnlockKey(ix, iy);
+	}
+
+	public void UnlockKey (int x, int y) {
+		allowedKeysBools[x, y] = true;
+	}
+
 	public string GetAllowedKey (string nearTo) {
 		int width = allowedKeys.GetLength(0);
 		int height = allowedKeys.GetLength(1);
@@ -108,11 +130,15 @@ public class InputManagerScript : MonoBehaviour {
 	}
 
 	IEnumerator GameLoop () {
-
-		for (int i = 0; i < 10; i++) {
+		ResetAllowedKeys();
+		for (int i = 0; i < 20; i++) {
 			yield return new WaitForSeconds(4f);
 			var go = Instantiate(keyPrefab, canvas);
 			var keyScript = go.GetComponent<KeyScript>();
+
+			if (i % 10 == 0) {
+				ResetAllowedKeys();
+			}
 
 			GameObject grannySpawn = GameObject.FindGameObjectWithTag("GrannySpawner");
 
@@ -121,5 +147,7 @@ public class InputManagerScript : MonoBehaviour {
 			}
 			keyScript.Initialize(GetAllowedKey());
 		}
+
+		SceneManager.LoadScene("Victory");
 	}
 }

@@ -25,8 +25,12 @@ public class EnergyMeter : MonoBehaviour {
 	}
 
 	public void SetNewEnergyMeterStatus(int status){
-
-		displayMeter.sprite = EnergyMeterImages [status-1];
-
+		if (status <= 0) {
+			displayMeter.sprite = EnergyMeterImages [status];
+		} else {
+			displayMeter.sprite = EnergyMeterImages [status - 1];
+		}
+			
+		
 	}
 }
