@@ -30,6 +30,12 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 		}
 	}
 
+	void Start(){
+
+		FindObjectOfType<AudioManager> ().Play ("busDrive");
+		StartCoroutine( FindObjectOfType<AudioManager> ().RandomPlay ());
+	}
+
 	void OnEnable() {
 		originalPos = camTransform.localPosition;
 		originalDuration = shakeDuration;
@@ -38,6 +44,7 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 	}
 
 	void Shake() {
+		FindObjectOfType<AudioManager> ().Play ("bumpyRide");
 		if (shakeDuration > 0) {
 			camTransform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 
