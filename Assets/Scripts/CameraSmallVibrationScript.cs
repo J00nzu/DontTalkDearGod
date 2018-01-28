@@ -25,7 +25,8 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 		if (camTransform == null)
 		{
 			//camTransform = GetComponent(typeof(Transform)) as Transform;
-			camTransform  = transform.Find("Main Camera").GetComponent<Camera>().transform;
+			//camTransform  = transform.Find("Main Camera").GetComponent<Camera>().transform;
+			camTransform = Camera.main.transform;
 		}
 	}
 

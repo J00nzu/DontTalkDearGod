@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerScript : MonoBehaviour {
@@ -32,7 +33,9 @@ public class PlayerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (oxygen < 0) {
+			GameOver();
+		}
 		oxygen = Mathf.Clamp(oxygen, 0, 100);
 		
 		if (Input.GetKeyDown(breathKey)) {
@@ -48,6 +51,17 @@ public class PlayerScript : MonoBehaviour {
 
 	public void IncreaseAnxiety () {
 		anxiety++;
+		switch (anxiety) {
+			case 2:
+				SetBreathingDifficulty(BreathingDifficulty.medium);
+				break;
+			case 4:
+				SetBreathingDifficulty(BreathingDifficulty.hard);
+				break;
+		}
+		if (anxiety >= maxAnxiety) {
+			GameOver();
+		}
 	}
 
 	void OnGUI () {
@@ -117,5 +131,9 @@ public class PlayerScript : MonoBehaviour {
 
 			}
 		}
+	}
+
+	void GameOver () {
+		SceneManager.LoadScene("GameOver");
 	}
 }

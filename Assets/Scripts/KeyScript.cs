@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class KeyScript : MonoBehaviour {
 
-	public GameObject successPrefab;
 
 	public Text text;
 
@@ -54,8 +53,6 @@ public class KeyScript : MonoBehaviour {
 	}
 
 	void OnDestroy () {
-		if (successPrefab != null) {
-			var go = Instantiate(successPrefab, transform.parent);
-		}
+		//FindObjectOfType<InputManagerScript>().UnlockKey(key);
 	}
 }
