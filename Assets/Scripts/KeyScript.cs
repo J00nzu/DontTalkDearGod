@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class KeyScript : MonoBehaviour {
 
+	public GameObject successPrefab;
+
 	public Text text;
 
 	public string key;
@@ -48,6 +50,12 @@ public class KeyScript : MonoBehaviour {
 		} else {
 			pres.enabled = false;
 			unPres.enabled = true;
+		}
+	}
+
+	void OnDestroy () {
+		if (successPrefab != null) {
+			var go = Instantiate(successPrefab, transform.parent);
 		}
 	}
 }

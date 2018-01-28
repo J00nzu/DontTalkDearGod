@@ -20,6 +20,10 @@ public class PlayerScript : MonoBehaviour {
 
 	public KeyCode breathKey = KeyCode.RightShift;
 
+	private int anxiety = 0;
+	private int maxAnxiety = 5;
+
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(Breathing());
@@ -36,6 +40,14 @@ public class PlayerScript : MonoBehaviour {
 		} else if (Input.GetKeyUp(breathKey)) {
 			BreatheOut();
 		}
+	}
+
+	public int GetAnxiety () {
+		return anxiety;
+	}
+
+	public void IncreaseAnxiety () {
+		anxiety++;
 	}
 
 	void OnGUI () {

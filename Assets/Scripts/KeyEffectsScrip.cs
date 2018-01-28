@@ -27,10 +27,17 @@ public class KeyEffectsScrip : MonoBehaviour {
 
 
 	float flickTime = 2f;
+	float expandTime = 5f;
+
+	float expandRatio = 0.7f;
+
+	PlayerScript player;
+
 
 	// Use this for initialization
 	void Start () {
 		coroutineFlicking = StartCoroutine(flicking());
+		player = FindObjectOfType<PlayerScript>();
 	}
 
 	// Update is called once per frame
@@ -42,12 +49,20 @@ public class KeyEffectsScrip : MonoBehaviour {
 
 		if (Input.GetKeyDown(code)) {
 			StopCoroutine(coroutineFlicking);
+			coroutineExpanding = StartCoroutine(expanding());
 		} else if (Input.GetKeyUp(code)) {
 			coroutineFlicking = StartCoroutine(flicking());
+			StopCoroutine(coroutineExpanding);
 		}
 	}
 
-	void DestroyKey () {
+	void DestroyKey (bool success) {
+
+		if (success) {
+
+		} else {
+			player.IncreaseAnxiety();
+		}
 
 		//var go = Instantiate(puffEffect);
 
@@ -56,6 +71,19 @@ public class KeyEffectsScrip : MonoBehaviour {
 
 
 		Destroy(parentToKill);
+	}
+
+	IEnumerator expanding () {
+		imageList[0].color = new Color(100, 100, 100, 255);
+		float targetScale = parentToKill.transform.localScale.x * expandRatio;
+		while (expandTime > 0) {
+			expandTime -= Time.deltaTime;
+			float originalScale = parentToKill.transform.localScale.x;
+			float nuScale = Mathf.Lerp(originalScale, targetScale, Time.deltaTime);
+			parentToKill.transform.localScale = new Vector3(nuScale, nuScale, nuScale);
+			yield return null;
+		}
+		DestroyKey(true);
 	}
 
 	IEnumerator flicking () {
@@ -73,7 +101,7 @@ public class KeyEffectsScrip : MonoBehaviour {
 			yield return new WaitForSeconds(sleepTime);
 		}
 
-		DestroyKey();
+		DestroyKey(false);
 	}
 
 }

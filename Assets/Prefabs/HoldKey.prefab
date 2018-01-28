@@ -157,6 +157,7 @@ MonoBehaviour:
   - {fileID: 114027017304420690}
   puffEffect: {fileID: 1357825752485342, guid: 4ed54ec329a638c4a843a7de718e2353, type: 2}
   parentToKill: {fileID: 1260188641216928}
+  keyScribu: {fileID: 114890423635334876}
   timer: 10
   SecondsToWait: 0.5
   speed: 10
@@ -189,6 +190,7 @@ MonoBehaviour:
   - {fileID: 114634502939947126}
   puffEffect: {fileID: 1357825752485342, guid: 4ed54ec329a638c4a843a7de718e2353, type: 2}
   parentToKill: {fileID: 1260188641216928}
+  keyScribu: {fileID: 114890423635334876}
   timer: 10
   SecondsToWait: 0.5
   speed: 10
@@ -295,6 +297,7 @@ MonoBehaviour:
   pressed: 0
   unPres: {fileID: 114027017304420690}
   pres: {fileID: 114634502939947126}
+  thisKeyCode: 0
 --- !u!114 &114980741982440040
 MonoBehaviour:
   m_ObjectHideFlags: 1
