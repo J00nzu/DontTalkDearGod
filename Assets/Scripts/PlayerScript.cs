@@ -7,7 +7,7 @@ public class PlayerScript : MonoBehaviour {
 
 	public enum BreathingDifficulty { easy, medium, hard }; 
 
-	public float oxygen = 60;
+	public float oxygen = 100;
 	public float lungFill = 100;
 	public float breatheTime = 2f;
 
@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 
 	bool breathingIn = false;
 
-
+	public KeyCode breathKey = KeyCode.RightShift;
 
 	// Use this for initialization
 	void Start () {
@@ -31,9 +31,9 @@ public class PlayerScript : MonoBehaviour {
 
 		oxygen = Mathf.Clamp(oxygen, 0, 100);
 		
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(breathKey)) {
 			BreatheIn();
-		} else if (Input.GetKeyUp(KeyCode.Space)) {
+		} else if (Input.GetKeyUp(breathKey)) {
 			BreatheOut();
 		}
 	}

@@ -4,66 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class KeyEffectsScrip : MonoBehaviour {
-    
+
 	private Image image;
 
 	public List<Image> imageList;
 
-
 	public GameObject puffEffect;
-
 	public GameObject parentToKill;
+
+	public KeyScript keyScribu;
 
 
 	public int timer;
 	public float SecondsToWait;
 
+	private Coroutine coroutineFlicking;
+	private Coroutine coroutineExpanding;
 
-	private IEnumerator coroutine;
+	private KeyCode code = KeyCode.Escape;
 
 	public float speed;
-    // Use this for initialization
-    void Start()
-    {
-
-		//image =  this.GetComponent<Image>();
 
 
-		//coroutine =;//redFlick();
+	float flickTime = 2f;
 
-		StartCoroutine( endFlick ());
-
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-	void DestroyKey(){
-		
-		var go = Instantiate (puffEffect);
-
-		go.transform.position = this.transform.position;//Camera.main.ScreenToWorldPoint(this.transform.position);
-		Destroy (go, 1);
-		Destroy (parentToKill);
-
+	// Use this for initialization
+	void Start () {
+		coroutineFlicking = StartCoroutine(flicking());
 	}
 
-	IEnumerator endTap(){
-		if (imageList.Count > 1) {
-
-			while (true) {
-
-				imageList [1].color = new Color (100, 100, 100, 0);
-				yield return new WaitForSeconds (0.5f);
-				imageList [1].color = new Color (100, 100, 100, 255);
-				yield return new WaitForSeconds (0.5f);
-
-			}
+	// Update is called once per frame
+	void Update () {
+		code = keyScribu.thisKeyCode;
+		if (code == KeyCode.Escape) {
+			return;
 		}
+<<<<<<< HEAD
 	}
 
 
@@ -86,26 +62,43 @@ public class KeyEffectsScrip : MonoBehaviour {
 			yield return new WaitForSeconds (this.SecondsToWait);
 
 			this.SecondsToWait = this.SecondsToWait * factor;
+=======
+>>>>>>> 0820e214da8a1ddf15f3f3dab3dc9c9afb0d61ff
 
+		if (Input.GetKeyDown(code)) {
+			StopCoroutine(coroutineFlicking);
+		} else if (Input.GetKeyUp(code)) {
+			coroutineFlicking = StartCoroutine(flicking());
+		}
+	}
+
+	void DestroyKey () {
+
+		//var go = Instantiate(puffEffect);
+
+		//.transform.position = this.transform.position;//Camera.main.ScreenToWorldPoint(this.transform.position);
+		//Destroy(go, 1);
+
+
+		Destroy(parentToKill);
+	}
+
+	IEnumerator flicking () {
+
+		while (flickTime > 0) {
+			imageList[0].color = new Color(100, 100, 100, 255);
+
+			float sleepTime = Mathf.Clamp(flickTime / 8, 0.05f, 1);
+			flickTime -= sleepTime*2;
+
+			yield return new WaitForSeconds(sleepTime);
+
+			imageList[0].color = new Color(255, 0, 0);
+
+			yield return new WaitForSeconds(sleepTime);
 		}
 
-			imageList[0].color = new Color (255, 0, 0);
-
-		yield return new WaitForSeconds (1);
-
-			imageList[0].color = new Color (0, 0, 0,0);
-
-			
-
-
-
-		DestroyKey ();
-
-
-    }
-
-
-
-
+		DestroyKey();
+	}
 
 }
