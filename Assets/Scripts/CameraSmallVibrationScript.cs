@@ -10,7 +10,6 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 	public float shakeDuration = 0f;
 	public float shakeWait = 0f;
 	public float shakeDurationThreshold = 0.01f;
-	//public bool shakeRepeat = false;
 
 	// Amplitude of the shake. A larger value shakes the camera harder.
 	public float shakeAmount = 0.7f;
@@ -25,13 +24,16 @@ public class CameraSmallVibrationScript : MonoBehaviour {
 	void Awake() {
 		if (camTransform == null)
 		{
-			camTransform = GetComponent(typeof(Transform)) as Transform;
+			//camTransform = GetComponent(typeof(Transform)) as Transform;
+			camTransform  = transform.Find("Main Camera").GetComponent<Camera>().transform;
 		}
 	}
 
 	void OnEnable() {
 		originalPos = camTransform.localPosition;
 		originalDuration = shakeDuration;
+
+		waitingTimeLapsed = shakeWait;
 	}
 
 	void Shake() {
