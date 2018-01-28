@@ -17,6 +17,12 @@ public class InputManagerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		ResetAllowedKeys();
+		StartCoroutine(GameLoop());
+	}
+
+	public void ResetAllowedKeys () {
 		int width = allowedKeys.GetLength(0);
 		int height = allowedKeys.GetLength(1);
 
@@ -26,10 +32,7 @@ public class InputManagerScript : MonoBehaviour {
 				allowedKeysBools[i, j] = true;
 			}
 		}
-
-		StartCoroutine(GameLoop());
 	}
-
 
 	public string GetAllowedKey () {
 		int width = allowedKeys.GetLength(0);
@@ -40,9 +43,9 @@ public class InputManagerScript : MonoBehaviour {
 			int y = Random.Range(0, height - 1);
 			if (CheckKey(x, y)) {
 				key = allowedKeys[x, y];
-			} else {
 				allowedKeysBools[x, y] = false;
 			}
+
 		}
 
 		return key;
@@ -91,7 +94,6 @@ public class InputManagerScript : MonoBehaviour {
 			if ((Mathf.Abs(ix - x) <= 1 && Mathf.Abs(iy - y) <= 1) && (ix != x || iy != y)) {
 				if (CheckKey(x, y)) {
 					key = allowedKeys[x, y];
-				} else {
 					allowedKeysBools[x, y] = false;
 				}
 			}
@@ -111,6 +113,12 @@ public class InputManagerScript : MonoBehaviour {
 			yield return new WaitForSeconds(4f);
 			var go = Instantiate(keyPrefab, canvas);
 			var keyScript = go.GetComponent<KeyScript>();
+
+			GameObject grannySpawn = GameObject.FindGameObjectWithTag("GrannySpawner");
+
+			if (grannySpawn != null) {
+				go.transform.position = grannySpawn.transform.position;
+			}
 			keyScript.Initialize(GetAllowedKey());
 		}
 	}

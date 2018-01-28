@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour {
 
 	bool breathingIn = false;
 
-
+	public KeyCode breathKey = KeyCode.RightControl;
 
 	// Use this for initialization
 	void Start () {
@@ -31,9 +31,9 @@ public class PlayerScript : MonoBehaviour {
 
 		oxygen = Mathf.Clamp(oxygen, 0, 100);
 		
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(breathKey)) {
 			BreatheIn();
-		} else if (Input.GetKeyUp(KeyCode.Space)) {
+		} else if (Input.GetKeyUp(breathKey)) {
 			BreatheOut();
 		}
 	}

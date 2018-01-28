@@ -9,11 +9,14 @@ public class KeyMovementScript : MonoBehaviour {
 	public float SecondsToWait;
 	private IEnumerator coroutine;
 
+	KeyScript keyScrip;
+
 	public float speed;
 	// Use this for initialization
 	void Start () {
 		HolderObject = this.gameObject;
 		// Start function WaitAndPrint as a coroutine.
+		keyScrip = GetComponent<KeyScript>();
 
 		coroutine = BasicMovement ();//redFlick();
 		StartCoroutine(coroutine);
@@ -41,10 +44,6 @@ public class KeyMovementScript : MonoBehaviour {
 				HolderObject.transform.Translate (-Vector3.up  *speed* Time.deltaTime);
 			}
 
-
-
 		}
-
-
 	}
 }
