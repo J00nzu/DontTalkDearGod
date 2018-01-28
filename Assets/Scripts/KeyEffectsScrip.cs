@@ -39,31 +39,6 @@ public class KeyEffectsScrip : MonoBehaviour {
 		if (code == KeyCode.Escape) {
 			return;
 		}
-<<<<<<< HEAD
-	}
-
-
-    IEnumerator endFlick()
-    {
-		
-		//Color defual = image.color;
-		float factor = 0.8f;
-		StartCoroutine( endTap());
-		for(int i = 0 ; i < timer;i++) {
-
-					imageList [0].color = new Color (100, 100, 100,255);
-				
-			//image.color = defual;
-			yield return new WaitForSeconds (this.SecondsToWait);
-			//Debug.Log ("toimii");
-
-					imageList [0].color = new Color (255, 0, 0);
-				
-			yield return new WaitForSeconds (this.SecondsToWait);
-
-			this.SecondsToWait = this.SecondsToWait * factor;
-=======
->>>>>>> 0820e214da8a1ddf15f3f3dab3dc9c9afb0d61ff
 
 		if (Input.GetKeyDown(code)) {
 			StopCoroutine(coroutineFlicking);
