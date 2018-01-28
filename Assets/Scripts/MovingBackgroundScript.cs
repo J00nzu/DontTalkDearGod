@@ -5,12 +5,12 @@ using UnityEngine;
 public class MovingBackgroundScript : MonoBehaviour {
 	public Rigidbody rb;
 	public Vector3 rot_dir;
-	public float rot_vel = 0.25f;
+	public float rot_vel = 0.5f;
 	// Use this for initialization
 	void Start () {
 		//rb = GetComponent<Rigidbody>();
 		if (rot_dir == new Vector3(0,0,0)) {
-			rot_dir = transform.forward;
+			rot_dir = -transform.forward;
 		}
 	}
 	

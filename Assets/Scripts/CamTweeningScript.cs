@@ -6,13 +6,15 @@ using UnityEngine;
 public class CamTweeningScript : MonoBehaviour {
 	public float animationTimeSec = 2.5f;
 	//[Range(0.0f, 1.0f)] public float parameter = 0.0f;
-	float parameter = 0.0f;
+	//public float parameter = 0.0f;
+	public float parameter;
 
 	float animationTimeLapsed = 0.0f;
 	BansheeGz.BGSpline.Components.BGCcCursor camPosCursor, camRotCursor;
 
 	// Use this for initialization
 	void Start () {
+		if (parameter == null) parameter = 0.8f;
 		camPosCursor = transform.Find ("BGCurve CamPos").gameObject.GetComponent<BansheeGz.BGSpline.Components.BGCcCursor> ();
 		camRotCursor = transform.Find ("BGCurve CamRot").gameObject.GetComponent<BansheeGz.BGSpline.Components.BGCcCursor> ();
 	}
@@ -20,12 +22,14 @@ public class CamTweeningScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		animationTimeLapsed += Time.deltaTime;
-		if (animationTimeLapsed < animationTimeSec) {
-			parameter = animationTimeLapsed / animationTimeSec;
+		if (animationTimeLapsed < animationTimeSec && parameter < 1.0f) {
+			parameter += Time.deltaTime / animationTimeSec;
 
 			camPosCursor.DistanceRatio = EasingFunction.EaseInOutSine (0.0f, 1.0f, parameter);
 			//camRotCursor.DistanceRatio = EasingFunction.EaseInOutQuad (0.0f, 1.0f, animationTimeLapsed / animationTimeSec);
 			camRotCursor.DistanceRatio = camPosCursor.DistanceRatio;
+		} else {
+			parameter = 1.0f;
 		}
 	}
 }
