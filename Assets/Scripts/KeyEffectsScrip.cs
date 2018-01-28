@@ -79,7 +79,7 @@ public class KeyEffectsScrip : MonoBehaviour {
 				
 			//image.color = defual;
 			yield return new WaitForSeconds (this.SecondsToWait);
-			Debug.Log ("toimii");
+			//Debug.Log ("toimii");
 
 					imageList [0].color = new Color (255, 0, 0);
 				
