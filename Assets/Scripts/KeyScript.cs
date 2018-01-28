@@ -13,7 +13,7 @@ public class KeyScript : MonoBehaviour {
 
 	public Image unPres, pres;
 
-	KeyCode thisKeyCode;
+	public KeyCode thisKeyCode;
 
 	// Use this for initialization
 	void Start () {

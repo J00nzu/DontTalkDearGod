@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GrannySpawner
   - PlayerSpawner
+  - KeyPoint
   layers:
   - Default
   - TransparentFX

@@ -44,14 +44,14 @@ public class SpacebarButtonScript : MonoBehaviour {
 			while (timer < shakeTime) {
 				timer += Time.deltaTime;
 				float i = timer / shakeTime;
-				transform.rotation = Quaternion.Euler(new Vector3(0,0,i*shakeAngle));
+				transform.localRotation = Quaternion.Euler(new Vector3(0,0, i*shakeAngle));
 
 				yield return null;
 			}
 			while (timer > -shakeTime) {
 				timer -= Time.deltaTime;
 				float i = timer / shakeTime;
-				transform.rotation = Quaternion.Euler(new Vector3(0, 0, i * shakeAngle));
+				transform.localRotation = Quaternion.Euler(new Vector3(0,0, i * shakeAngle));
 
 				yield return null;
 			}
@@ -60,11 +60,11 @@ public class SpacebarButtonScript : MonoBehaviour {
 		while (timer != 0) {
 			timer = Mathf.MoveTowards(timer, 0, Time.deltaTime);
 			float i = timer / shakeTime;
-			transform.rotation = Quaternion.Euler(new Vector3(0, 0, i * shakeAngle));
+			transform.localRotation = Quaternion.Euler(new Vector3(0,0, i * shakeAngle));
 			yield return null;
 		}
 
-		transform.rotation = Quaternion.identity;
+		transform.localRotation = Quaternion.identity;
 		shaking = false;
 	}
 }

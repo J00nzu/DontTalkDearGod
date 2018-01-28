@@ -11,6 +11,8 @@ public class KeyMovementScript : MonoBehaviour {
 
 	KeyScript keyScrip;
 
+	KeyPointScript target;
+
 	public float speed;
 	// Use this for initialization
 	void Start () {
@@ -18,13 +20,25 @@ public class KeyMovementScript : MonoBehaviour {
 		// Start function WaitAndPrint as a coroutine.
 		keyScrip = GetComponent<KeyScript>();
 
+		var list = FindObjectsOfType<KeyPointScript>();
+
+		foreach (var kp in list) {
+			if (!kp.occupied) {
+				target = kp;
+				kp.occupied = true;
+				break;
+			}
+		}
+
 		coroutine = BasicMovement ();//redFlick();
 		StartCoroutine(coroutine);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(target != null) { 
+			transform.position = Vector3.Lerp(transform.position, target.transform.position, Time.deltaTime*2);
+		}
 	}
 
 	IEnumerator BasicMovement(){
@@ -44,6 +58,11 @@ public class KeyMovementScript : MonoBehaviour {
 				HolderObject.transform.Translate (-Vector3.up  *speed* Time.deltaTime);
 			}
 
+		}
+	}
+	void OnDestroy () {
+		if (target != null) {
+			target.occupied = false;
 		}
 	}
 }

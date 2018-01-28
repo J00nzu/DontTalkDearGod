@@ -9,89 +9,71 @@ public class KeyEffectsScrip : MonoBehaviour {
 
 	public List<Image> imageList;
 
-
 	public GameObject puffEffect;
-
 	public GameObject parentToKill;
+
+	public KeyScript keyScribu;
 
 
 	public int timer;
 	public float SecondsToWait;
 
+	private Coroutine coroutineFlicking;
+	private Coroutine coroutineExpanding;
 
-	private IEnumerator coroutine;
+	private KeyCode code = KeyCode.Escape;
 
 	public float speed;
+
+
+	float flickTime = 2f;
+
 	// Use this for initialization
 	void Start () {
-
-		//image =  this.GetComponent<Image>();
-
-
-		//coroutine =;//redFlick();
-
-		StartCoroutine(endFlick());
-
-
+		coroutineFlicking = StartCoroutine(flicking());
 	}
 
 	// Update is called once per frame
 	void Update () {
+		code = keyScribu.thisKeyCode;
+		if (code == KeyCode.Escape) {
+			return;
+		}
 
+		if (Input.GetKeyDown(code)) {
+			StopCoroutine(coroutineFlicking);
+		} else if (Input.GetKeyUp(code)) {
+			coroutineFlicking = StartCoroutine(flicking());
+		}
 	}
 
 	void DestroyKey () {
 
-		var go = Instantiate(puffEffect);
+		//var go = Instantiate(puffEffect);
 
-		go.transform.position = this.transform.position;//Camera.main.ScreenToWorldPoint(this.transform.position);
-		Destroy(go, 1);
+		//.transform.position = this.transform.position;//Camera.main.ScreenToWorldPoint(this.transform.position);
+		//Destroy(go, 1);
+
+
 		Destroy(parentToKill);
-
 	}
 
-	IEnumerator endTap () {
-		if (imageList.Count > 1) {
+	IEnumerator flicking () {
 
-			while (true) {
-
-				imageList[1].color = new Color(100, 100, 100, 0);
-				yield return new WaitForSeconds(0.5f);
-				imageList[1].color = new Color(100, 100, 100, 255);
-				yield return new WaitForSeconds(0.5f);
-
-			}
-		}
-	}
-
-
-	IEnumerator endFlick () {
-
-		//Color defual = image.color;
-		float factor = 0.8f;
-		StartCoroutine(endTap());
-		for (int i = 0; i < timer; i++) {
-
+		while (flickTime > 0) {
 			imageList[0].color = new Color(100, 100, 100, 255);
 
-			//image.color = defual;
-			yield return new WaitForSeconds(this.SecondsToWait);
+			float sleepTime = Mathf.Clamp(flickTime / 8, 0.05f, 1);
+			flickTime -= sleepTime*2;
+
+			yield return new WaitForSeconds(sleepTime);
 
 			imageList[0].color = new Color(255, 0, 0);
 
-			yield return new WaitForSeconds(this.SecondsToWait);
-
-			this.SecondsToWait = this.SecondsToWait * factor;
-
+			yield return new WaitForSeconds(sleepTime);
 		}
 
-		imageList[0].color = new Color(255, 0, 0);
-		yield return new WaitForSeconds(1);
-		imageList[0].color = new Color(0, 0, 0, 0);
-
 		DestroyKey();
-
-
 	}
 
 }
